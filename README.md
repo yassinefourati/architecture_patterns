@@ -1,4 +1,4 @@
-# Spring Boot Architecture Patterns — Working Examples
+# Spring Boot Architecture Patterns
 
 A multi-module Maven project where each module is a self-contained, runnable Spring Boot application demonstrating one architecture pattern. Each module has its own README explaining the pattern, the structure, and how to run it.
 
