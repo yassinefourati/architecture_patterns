@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: reactive
+  r2dbc:
+    url: r2dbc:h2:mem:///reactive
+  sql:
+    init:
+      mode: always
+
+server:
+  port: 8095
+
+logging:
+  level:
+    org.springframework.r2dbc: INFO
+    com.example.reactive: INFO

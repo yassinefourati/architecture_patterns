@@ -1,0 +1,50 @@
+spring:
+  application:
+    name: resilience
+
+server:
+  port: 8087
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, circuitbreakers, retries, timelimiters
+  endpoint:
+    health:
+      show-details: always
+  health:
+    circuitbreakers:
+      enabled: true
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      downstream:
+        failure-rate-threshold: 50           # %, opens when half of recent calls fail
+        slow-call-rate-threshold: 50         # %, slow calls count toward the threshold
+        slow-call-duration-threshold: 1s     # any call >1s is "slow"
+        wait-duration-in-open-state: 10s     # how long to stay OPEN before going HALF_OPEN
+        sliding-window-size: 10              # last 10 calls considered
+        permitted-number-of-calls-in-half-open-state: 3
+        register-health-indicator: true
+
+  retry:
+    instances:
+      downstream:
+        max-attempts: 3
+        wait-duration: 200ms
+        exponential-backoff-multiplier: 2
+        retry-exceptions:
+          - com.example.resilience.FlakyDownstream$DownstreamException
+
+  timelimiter:
+    instances:
+      downstream:
+        timeout-duration: 1s
+        cancel-running-future: true
+
+logging:
+  level:
+    com.example.resilience: INFO
+    io.github.resilience4j: INFO

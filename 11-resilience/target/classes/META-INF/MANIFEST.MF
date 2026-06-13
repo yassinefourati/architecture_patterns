@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Build-Jdk-Spec: 25
+Implementation-Title: 11 - Resilience4j (Circuit Breaker, Retry, TimeLim
+ iter)
+Implementation-Version: 1.0.0
+Created-By: Maven Integration for Eclipse
+
