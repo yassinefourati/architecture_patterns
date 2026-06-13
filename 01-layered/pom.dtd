@@ -1,0 +1,13 @@
+<!ELEMENT project (modelVersion,parent,artifactId,name,dependencies,build)>
+<!ELEMENT modelVersion (#PCDATA)>
+<!ELEMENT parent (groupId,artifactId,version)>
+<!ELEMENT groupId (#PCDATA)>
+<!ELEMENT artifactId (#PCDATA)>
+<!ELEMENT version (#PCDATA)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT dependencies (dependency+)>
+<!ELEMENT dependency (groupId,artifactId,scope?)>
+<!ELEMENT scope (#PCDATA)>
+<!ELEMENT build (plugins)>
+<!ELEMENT plugins (plugin)>
+<!ELEMENT plugin (groupId,artifactId)>

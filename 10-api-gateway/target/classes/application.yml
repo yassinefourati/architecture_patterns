@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      default-filters:
+        # Adds a header so downstream services know the request came through the gateway.
+        - AddRequestHeader=X-Gateway, spring-cloud-gateway
+
+      routes:
+        # Route /api/orders/** to the order-service from module 07 (port 8092)
+        - id: order-service
+          uri: http://localhost:8092
+          predicates:
+            - Path=/api/orders/**
+          filters:
+            # Add a correlation id if missing
+            - AddRequestHeader=X-Correlation-Id, ${random.uuid}
+
+        # Route /api/inventory/** to the inventory-service from module 07 (port 8091)
+        - id: inventory-service
+          uri: http://localhost:8091
+          predicates:
+            - Path=/api/inventory/**
+          filters:
+            # Strip the /v1 prefix if present (demonstrates path rewriting)
+            - RewritePath=/api/inventory/v1/(?<segment>.*), /api/inventory/${segment}
+
+        # Demonstrate a public read-only echo route to a public test server
+        - id: echo
+          uri: https://httpbin.org
+          predicates:
+            - Path=/echo/**
+          filters:
+            - StripPrefix=1
+
+server:
+  port: 8090
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, gateway, info
+
+logging:
+  level:
+    org.springframework.cloud.gateway: INFO
+    reactor.netty: WARN
