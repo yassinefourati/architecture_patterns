@@ -90,7 +90,7 @@ curl -X POST http://localhost:8089/api/orders \
   }'
 ```
 
-Payment rejects amounts > $10,000.
+Payment rejects amounts > $10,000. 
 
 ## What to notice
 

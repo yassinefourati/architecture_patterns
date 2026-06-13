@@ -34,6 +34,10 @@ public class PaymentService {
     }
 
     public static class PaymentException extends RuntimeException {
-        public PaymentException(String msg) { super(msg); }
+		private static final long serialVersionUID = -306759604001253393L;
+
+		public PaymentException(String msg) {
+			super(msg);
+		}
     }
 }

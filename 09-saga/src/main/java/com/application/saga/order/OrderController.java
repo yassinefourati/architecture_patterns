@@ -46,7 +46,11 @@ public class OrderController {
         @Min(1) int quantity,
         @NotNull @DecimalMin("0.01") BigDecimal amount,
         @NotBlank String shippingAddress
-    ) {}
+    ) {
+    	
+    }
 
-    public record OrderResponse(UUID sagaId, UUID paymentId, UUID reservationId, UUID shipmentId) {}
+    public record OrderResponse(UUID sagaId, UUID paymentId, UUID reservationId, UUID shipmentId) {
+    	
+    }
 }

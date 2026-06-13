@@ -32,6 +32,11 @@ public class ShippingService {
     }
 
     public static class ShippingException extends RuntimeException {
-        public ShippingException(String msg) { super(msg); }
+    
+        private static final long serialVersionUID = 2343381176983022716L;
+
+		public ShippingException(String msg) {
+			super(msg);
+		}
     }
 }

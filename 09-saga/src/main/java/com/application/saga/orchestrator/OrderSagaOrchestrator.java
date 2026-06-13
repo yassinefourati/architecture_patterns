@@ -58,11 +58,14 @@ public class OrderSagaOrchestrator {
     }
 
     /** Undo completed steps in reverse order. Each compensation must be idempotent. */
-    private void compensate(OrderSagaContext ctx) {
-        if (ctx.shipmentId() != null) safe(() -> shippingService.cancel(ctx.shipmentId()));
-        if (ctx.reservationId() != null) safe(() -> inventoryService.release(ctx.reservationId()));
-        if (ctx.paymentId() != null) safe(() -> paymentService.refund(ctx.paymentId()));
-    }
+	private void compensate(OrderSagaContext ctx) {
+		if (ctx.shipmentId() != null)
+			safe(() -> shippingService.cancel(ctx.shipmentId()));
+		if (ctx.reservationId() != null)
+			safe(() -> inventoryService.release(ctx.reservationId()));
+		if (ctx.paymentId() != null)
+			safe(() -> paymentService.refund(ctx.paymentId()));
+	}
 
     private void safe(Runnable action) {
         try {
@@ -74,6 +77,11 @@ public class OrderSagaOrchestrator {
     }
 
     public static class SagaFailedException extends RuntimeException {
-        public SagaFailedException(String msg, Throwable cause) { super(msg, cause); }
+    	
+        private static final long serialVersionUID = 4431765796780986605L;
+
+		public SagaFailedException(String msg, Throwable cause) {
+			super(msg, cause);
+		}
     }
 }

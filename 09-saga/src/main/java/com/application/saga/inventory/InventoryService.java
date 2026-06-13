@@ -38,13 +38,18 @@ public class InventoryService {
         Reservation r = reservations.remove(reservationId);
         if (r != null) {
             stock.merge(r.productCode(), r.quantity(), Integer::sum);
-            log.info("[inventory] released {}Ã—{} ({})", r.quantity(), r.productCode(), reservationId);
+            log.info("[inventory] released {} — {} ({})", r.quantity(), r.productCode(), reservationId);
         }
     }
 
     private record Reservation(String productCode, int quantity) {}
 
     public static class InventoryException extends RuntimeException {
-        public InventoryException(String msg) { super(msg); }
+    	
+        private static final long serialVersionUID = -3180900671993465997L;
+
+		public InventoryException(String msg) {
+			super(msg);
+		}
     }
 }
